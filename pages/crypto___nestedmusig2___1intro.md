@@ -22,7 +22,6 @@
 		      B --> ROOT
 		      C --> ROOT
 		  ```
--
 - #### Why Nesting Is Necessary
 	- Traditional multi-signature schemes use flat structures where all signers are at the same level. This works fine for simple cases, but it fails to capture how real organisations actually make decisions. Most corporate, regulatory, and governance structures are inherently hierarchical. Decisions flow through layers of authority, each with its own internal signing requirements.
 	- Nesting solves this by allowing aggregate keys to combine at multiple levels. An executive committee might produce one aggregate key, a compliance team another, and both are needed for final authorization. Each team maintains its own internal multi-signature policy, but from the outside, they appear as single entities that must jointly approve the transaction.
