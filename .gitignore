@@ -1,0 +1,15 @@
+# Ignore daily journals
+journals/
+
+# Logseq generated trash / backups
+logseq/bak/
+logseq/.recycle/
+logseq/export/
+logseq/backups/
+logseq/graphs.json
+
+# macOS junk
+.DS_Store
+
+# Temp files
+*.tmp
