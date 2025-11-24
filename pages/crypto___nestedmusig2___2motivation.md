@@ -1,0 +1,13 @@
+#### Motivation
+	- Bitcoin applications increasingly rely on complex multisig policies (e.g. *threshold-of-threshold* arrangements or *multi-institution custody*) that go beyond flat *n-of-n* signing. Standard approaches either produce multiple signatures or require revealing script conditions on-chain, reducing efficiency and privacy. Nested MuSig2 addresses these concerns by allowing any hierarchical combination of signers to cooperatively produce a single Schnorr signature:
+		- **Hierarchical Multisig:**
+			- Participants can be organized in a tree of sub-groups. For example, a top-level 2-of-2 multisig could treat one of its "signers" as an aggregated key representing another 3-of-5 multisig group. Nested MuSig2 handles such cases seamlessly, eliminating the need for intermediary on-chain scripts or multiple signatures.
+		- **Efficiency and Scalability:**
+			- The on-chain footprint of a nested multisig is just one 32-byte public key and one 64-byte signature, regardless of the number of signers or depth of nesting. This is more compact and efficient to verify than having each sub-signer produce an individual signature (as would be required with traditional scripts or `OP_CHECKSIGADD` constructs). The number of participating keys is not limited by consensus rules, since they are aggregated off-chain.
+		- **Privacy:**
+			- A nested multisig Taproot output is indistinguishable from a regular single-signer Taproot output to blockchain observers. Observers cannot learn the structure (number of signers, groupings, etc.), it appears as a normal public key. This improves privacy over on-chain script-based multisigs, which reveal the threshold policy when spent.
+		- **Interoperability:**
+			- The scheme produces signatures that pass standard BIP340 verification for the aggregated public key and message. This means it works with existing Schnorr/Taproot implementations without modification. Signers can use normal secp256k1 keypairs, and the combined public key is an *x-only* key as in BIP340.
+		- **Two-Round Protocol:**
+			- Like MuSig2, the signing process requires only two communication rounds (nonce exchange and then partial signature exchange), even for arbitrarily nested structures. Fewer rounds simplify coordination, reduce latency, and minimize opportunities for miscommunication or misuse.
+	- In summary, Nested MuSig2 allows complex multi-party signing policies to be realized off-chain with a single aggregated key and signature. This improves scalability and privacy for Bitcoin multisig applications (such as collaborative custody, corporate treasury, and decentralized consensus protocols) while maintaining compatibility with Taproot and existing Schnorr verification.
