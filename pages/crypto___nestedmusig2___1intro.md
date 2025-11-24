@@ -1,5 +1,4 @@
 #### What is Nested MuSig2?
-title:: crypto/nestedmusig2/1intro
 	- At its core, Nested MuSig2 is an extension of the popular MuSig2 multi-signature protocol. Both protocols allow a group of individuals, each with a secret key, to collaborate and create a single, compact Schnorr signature that can be verified using a shared aggregated public key.
 	- However, Nested MuSig2 introduces the important capability of hierarchy. It allows a signature to be created not only from a flat list of keys, but also from a hierarchical structure, where an aggregated "group key" can itself be one of the signers in a higher-level aggregation. This results in a final signature that cryptographically represents an entire chain of authority.
 	-
