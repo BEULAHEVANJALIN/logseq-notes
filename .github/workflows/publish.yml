@@ -1,0 +1,30 @@
+name: Publish Logseq Graph (SPA)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Build published SPA into "www"
+      - name: Build Logseq publish SPA
+        uses: logseq/publish-spa@v0.3.1
+        with:
+          graph-directory: .
+          output-directory: www
+
+      # Deploy "www" to gh-pages branch
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: www
